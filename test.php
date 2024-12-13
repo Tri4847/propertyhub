@@ -7,6 +7,7 @@
     session_start();
     ?>
     login works?
+    <a class="button" href ="logout.php">Logout</a>
 
 </body>
 </html>
