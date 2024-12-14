@@ -1,5 +1,6 @@
 <?php
 include('db.php'); // Include database connection
+session_start();
 
 $property_id = $_GET['id'] ?? null;
 
