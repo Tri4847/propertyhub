@@ -12,7 +12,7 @@
 
     if ($user && password_verify($password, $user['password'])) {
         $_SESSION['player'] = $user['username'];
-        header('Location: test.php');//change location to actual page
+        header('Location: dashboard.php');//change location to actual page
     } else {
         $_SESSION['errorMessage'] = 'Invalid username or password.';
         header('Location: login.php');

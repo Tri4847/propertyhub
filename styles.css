@@ -1,0 +1,116 @@
+/* General styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    background-color: #f0f0f0;
+    color: #333;
+}
+
+/* Dashboard layout */
+#dashboard {
+    flex: 3;
+    padding: 20px;
+    background-color: #ffffff;
+}
+
+#wishlist {
+    flex: 1;
+    background-color: #f8f8f8;
+    padding: 20px;
+    border-left: 2px solid #ddd;
+}
+
+h1, h2 {
+    font-weight: 600;
+}
+
+/* Property Cards */
+.property-card {
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    padding: 15px;
+    text-align: center;
+    transition: transform 0.2s, box-shadow 0.2s;
+    width: 200px;
+}
+
+.property-card img {
+    max-width: 100%;
+    border-radius: 8px;
+    margin-bottom: 5px;
+}
+
+.property-card h3 {
+    margin: 10px 0;
+    font-size: 15px;
+}
+
+.property-card p {
+    margin: 5px 0;
+    color: #555;
+    font-size: 13px;
+}
+
+.property-card button {
+    background-color: #007bff;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 10px;
+}
+
+.property-card button:hover {
+    background-color: #0056b3;
+}
+
+/* Wishlist */
+#wishlist h2 {
+    font-size: 18px;
+}
+
+#wishlist-items {
+    list-style: none;
+    padding: 0;
+}
+
+.wishlist-item {
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin: 10px 0;
+    padding: 10px;
+}
+
+/* Modal */
+#property-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+#property-modal .modal-content {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    width: 80%;
+    max-width: 500px;
+}
+
+#property-modal img {
+    max-width: 100%;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
