@@ -11,7 +11,7 @@
     $user = $stmt->fetch();
 
     if ($user && password_verify($password, $user['password'])) {
-        $_SESSION['player'] = $user['username'];
+        $_SESSION['user_id'] = $user['id'];
         header('Location: dashboard.php');//change location to actual page
     } else {
         $_SESSION['errorMessage'] = 'Invalid username or password.';

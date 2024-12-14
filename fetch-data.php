@@ -2,7 +2,7 @@
 include('db.php'); // Include database connection using PDO
 session_start();
 
-$user_id = $_SESSION['user_id'] ?? 1; // Simulating logged-in user for testing
+$user_id = $_SESSION['user_id']?? null;
 
 try {
     // Fetch properties

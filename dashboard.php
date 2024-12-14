@@ -7,8 +7,12 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <?php
+    session_start();
+    ?>
     <div id="dashboard">
         <h1>Property Listings</h1>
+        <a href="logout.php" class="logout-button">Logout</a>
         <div id="properties"></div>
     </div>
     <div id="wishlist">
