@@ -30,9 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 <h3>${property.location}</h3>
                 <p>Price: $${property.price}</p>
                 <p>${property.details}</p>
-                <button data-id="${property.id}" class="wishlist-btn">
-                    ${wishlist.includes(property.id.toString()) ? "Remove from Wishlist" : "Add to Wishlist"}
-                </button>
+                <button data-id="${property.id}" class="wishlist-btn">Add to Wishlist</button>
                 <button class="details-btn" data-id="${property.id}">View Details</button>
             `;
 
@@ -49,12 +47,53 @@ document.addEventListener("DOMContentLoaded", () => {
             wishlistContainer.innerHTML = "<p>No items in your wishlist.</p>";
             return;
         }
-
+    
         wishlist.forEach(item => {
             const li = document.createElement("li");
             li.classList.add("wishlist-item");
-            li.textContent = `Property ID: ${item}`;
+    
+            // Render wishlist item with a remove button
+            li.innerHTML = `
+                <span>Property ID: ${item}</span>
+                <button class="remove-wishlist-btn" data-id="${item}">X</button>
+            `;
+    
             wishlistContainer.appendChild(li);
+        });
+    
+        addRemoveWishlistListeners(); // Add event listeners to the remove buttons
+    }
+
+    function addRemoveWishlistListeners() {
+        document.querySelectorAll(".remove-wishlist-btn").forEach(button => {
+            button.addEventListener("click", () => {
+                const propertyId = button.dataset.id;
+    
+                // Send a "remove" request to the wishlist-handler
+                fetch("wishlist-handler.php", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    credentials: "include",
+                    body: JSON.stringify({ propertyId, action: "remove" })
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            // Reload wishlist dynamically
+                            fetch("fetch-data.php", {
+                                credentials: "include"
+                            })
+                                .then(response => response.json())
+                                .then(data => {
+                                    renderProperties(data.properties, data.wishlist || []);
+                                    renderWishlist(data.wishlist || []);
+                                });
+                        } else {
+                            console.error("Error removing from wishlist:", data.message);
+                        }
+                    })
+                    .catch(error => console.error("Error removing from wishlist:", error));
+            });
         });
     }
 
@@ -62,12 +101,11 @@ document.addEventListener("DOMContentLoaded", () => {
         document.querySelectorAll(".wishlist-btn").forEach(button => {
             button.addEventListener("click", () => {
                 const propertyId = button.dataset.id;
-                const action = button.textContent.includes("Add") ? "add" : "remove";
 
                 fetch("wishlist-handler.php", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ propertyId, action })
+                    body: JSON.stringify({ propertyId, action: "add" })
                 })
                     .then(response => response.json())
                     .then(data => {

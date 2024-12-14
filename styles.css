@@ -22,6 +22,13 @@ body {
     border-left: 2px solid #ddd;
 }
 
+.wishlist-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; 
+    padding: 5px 0;
+}
+
 h1, h2 {
     font-weight: 600;
 }
@@ -70,7 +77,20 @@ h1, h2 {
     background-color: #0056b3;
 }
 
-/* Wishlist */
+.remove-wishlist-btn {
+    color: #aaa;
+    border: none;
+    background: none;
+    font-size: 16px;
+    cursor: pointer;
+    transition: color 0.2s ease; 
+    margin-left: auto;
+}
+
+.remove-wishlist-btn:hover {
+    color: red;
+}
+
 #wishlist h2 {
     font-size: 18px;
 }
