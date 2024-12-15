@@ -19,8 +19,8 @@
         <h2>Your Wishlist</h2>
         <ul id="wishlist-items"></ul>
     </div>
-    <div id="property-modal">
-        <div class="modal-content" id="modal-details"></div>
+    <div id="property-popup">
+        <div class="popup-content" id="popup-details"></div>
     </div>
     <script src="script.js"></script>
 </body>

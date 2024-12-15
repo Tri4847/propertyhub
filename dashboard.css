@@ -47,6 +47,8 @@ h1, h2 {
 }
 
 .property-card img {
+    height: 150px;
+    object-fit: cover;
     max-width: 100%;
     border-radius: 8px;
     margin-bottom: 5px;
@@ -108,8 +110,8 @@ h1, h2 {
     padding: 10px;
 }
 
-/* Modal */
-#property-modal {
+/* popup */
+#property-popup {
     position: fixed;
     top: 0;
     left: 0;
@@ -121,7 +123,7 @@ h1, h2 {
     align-items: center;
 }
 
-#property-modal .modal-content {
+#property-popup .popup-content {
     background-color: #ffffff;
     padding: 20px;
     border-radius: 10px;
@@ -129,7 +131,7 @@ h1, h2 {
     max-width: 500px;
 }
 
-#property-modal img {
+#property-popup img {
     max-width: 100%;
     border-radius: 8px;
     margin-bottom: 10px;

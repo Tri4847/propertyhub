@@ -1,8 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
     const propertiesContainer = document.getElementById("properties");
     const wishlistContainer = document.getElementById("wishlist-items");
-    const modal = document.getElementById("property-modal");
-    const modalDetails = document.getElementById("modal-details");
+    const popup = document.getElementById("property-popup");
+    const popupDetails = document.getElementById("popup-details");
 
     // Load initial data
     fetch("fetch-data.php")
@@ -15,21 +15,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function renderProperties(properties) {
         propertiesContainer.innerHTML = "";
-        if (properties.length === 0) {
-            propertiesContainer.innerHTML = "<p>No properties found.</p>";
-            return;
-        }
 
         properties.forEach(property => {
             const card = document.createElement("div");
             card.classList.add("property-card");
-
-            // Dynamically create card content
             card.innerHTML = `
                 <img src="${property.image_url}" alt="Property Image" style="width:100%; border-radius:8px;">
                 <h3>${property.location}</h3>
-                <p>Price: $${property.price}</p>
-                <p>${property.details}</p>
                 <button data-id="${property.id}" class="wishlist-btn">Add to Wishlist</button>
                 <button class="details-btn" data-id="${property.id}">View Details</button>
             `;
@@ -52,16 +44,14 @@ document.addEventListener("DOMContentLoaded", () => {
             const li = document.createElement("li");
             li.classList.add("wishlist-item");
     
-            // Render wishlist item with a remove button
+            // Wishlist with remove button
             li.innerHTML = `
                 <span>Property ID: ${item}</span>
                 <button class="remove-wishlist-btn" data-id="${item}">X</button>
             `;
-    
             wishlistContainer.appendChild(li);
         });
-    
-        addRemoveWishlistListeners(); // Add event listeners to the remove buttons
+        addRemoveWishlistListeners();
     }
 
     function addRemoveWishlistListeners() {
@@ -69,19 +59,17 @@ document.addEventListener("DOMContentLoaded", () => {
             button.addEventListener("click", () => {
                 const propertyId = button.dataset.id;
     
-                // Send a "remove" request to the wishlist-handler
+                // Remove request to the wishlist-handler
                 fetch("wishlist-handler.php", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
-                    credentials: "include",
                     body: JSON.stringify({ propertyId, action: "remove" })
                 })
                     .then(response => response.json())
                     .then(data => {
                         if (data.success) {
-                            // Reload wishlist dynamically
+                            // Reload wishlist 
                             fetch("fetch-data.php", {
-                                credentials: "include"
                             })
                                 .then(response => response.json())
                                 .then(data => {
@@ -101,7 +89,7 @@ document.addEventListener("DOMContentLoaded", () => {
         document.querySelectorAll(".wishlist-btn").forEach(button => {
             button.addEventListener("click", () => {
                 const propertyId = button.dataset.id;
-
+                // Add request to wishlist-handler
                 fetch("wishlist-handler.php", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
@@ -134,16 +122,18 @@ document.addEventListener("DOMContentLoaded", () => {
                 fetch(`property-details.php?id=${propertyId}`)
                     .then(response => response.text())
                     .then(data => {
-                        modalDetails.innerHTML = data;
-                        modal.style.display = "flex";
+                        popupDetails.innerHTML = data;
+                        popup.style.display = "flex";
                     })
                     .catch(error => console.error("Error fetching property details:", error));
             });
         });
     }
 
-    // Close modal on clicking outside
-    modal.addEventListener("click", () => {
-        modal.style.display = "none";
+    // Close popup on clicking outside
+    popup.addEventListener("click", (event) => {
+        if (event.target === popup) {
+            popup.style.display = "none";
+        }
     });
 });
