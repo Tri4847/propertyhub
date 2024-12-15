@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
         })
         .catch(error => console.error("Error fetching data:", error));
 
-    function renderProperties(properties, wishlist) {
+    function renderProperties(properties) {
         propertiesContainer.innerHTML = "";
         if (properties.length === 0) {
             propertiesContainer.innerHTML = "<p>No properties found.</p>";

@@ -13,7 +13,7 @@
     <div id="dashboard">
         <h1>Property Listings</h1>
         <a href="logout.php" class="logout-button">Logout</a>
-        <div id="properties"></div>
+        <div id="properties" style="display:flex; flex-direction:row; flex-wrap:wrap;"></div>
     </div>
     <div id="wishlist">
         <h2>Your Wishlist</h2>
