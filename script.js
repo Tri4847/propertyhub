@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const wishlistContainer = document.getElementById("wishlist-items");
     const popup = document.getElementById("property-popup");
     const popupDetails = document.getElementById("popup-details");
+    const searchForm = document.getElementById("search-form"); // Reference to the search form
 
     // Load initial data
     fetch("fetch-data.php")
@@ -13,8 +14,14 @@ document.addEventListener("DOMContentLoaded", () => {
         })
         .catch(error => console.error("Error fetching data:", error));
 
+    // Render property cards
     function renderProperties(properties) {
         propertiesContainer.innerHTML = "";
+
+        if (properties.length === 0) {
+            propertiesContainer.innerHTML = "<p>No properties found.</p>";
+            return;
+        }
 
         properties.forEach(property => {
             const card = document.createElement("div");
@@ -33,18 +40,18 @@ document.addEventListener("DOMContentLoaded", () => {
         addDetailsListeners();
     }
 
+    // Render wishlist
     function renderWishlist(wishlist) {
         wishlistContainer.innerHTML = "";
         if (wishlist.length === 0) {
             wishlistContainer.innerHTML = "<p>No items in your wishlist.</p>";
             return;
         }
-    
+
         wishlist.forEach(item => {
             const li = document.createElement("li");
             li.classList.add("wishlist-item");
-    
-            // Wishlist with remove button
+
             li.innerHTML = `
                 <span>Property ID: ${item}</span>
                 <button class="remove-wishlist-btn" data-id="${item}">X</button>
@@ -54,11 +61,45 @@ document.addEventListener("DOMContentLoaded", () => {
         addRemoveWishlistListeners();
     }
 
+    // Add event listeners for search form
+    searchForm.addEventListener("submit", (event) => {
+        event.preventDefault(); // Prevent page reload
+        console.log("Search button clicked!");
+
+        // Get search and filter values
+        const query = document.getElementById("search-input").value.trim();
+        const location = document.getElementById("location-filter").value;
+        const bedrooms = document.getElementById("bedrooms-filter").value;
+        const minPrice = document.getElementById("min-price").value;
+        const maxPrice = document.getElementById("max-price").value;
+
+        // Build query string
+        const params = new URLSearchParams({
+            query,
+            location,
+            bedrooms,
+            min_price: minPrice || 0,
+            max_price: maxPrice || Number.MAX_SAFE_INTEGER,
+        });
+
+        // Fetch filtered properties from the server
+        fetch(`search-function.php?${params.toString()}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    console.error(data.error);
+                } else {
+                    renderProperties(data.properties); // Update property cards
+                }
+            })
+            .catch(error => console.error("Error fetching filtered properties:", error));
+    });
+
     function addRemoveWishlistListeners() {
         document.querySelectorAll(".remove-wishlist-btn").forEach(button => {
             button.addEventListener("click", () => {
                 const propertyId = button.dataset.id;
-    
+
                 // Remove request to the wishlist-handler
                 fetch("wishlist-handler.php", {
                     method: "POST",
@@ -69,8 +110,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     .then(data => {
                         if (data.success) {
                             // Reload wishlist 
-                            fetch("fetch-data.php", {
-                            })
+                            fetch("fetch-data.php")
                                 .then(response => response.json())
                                 .then(data => {
                                     renderProperties(data.properties, data.wishlist || []);
