@@ -15,8 +15,7 @@
         <a href="logout.php" class="logout-button">Logout</a>
         <div id="search-bar">
             <form id="search-form">
-                <input type="text" id="search-input" name="query" placeholder="Search by property name or address">
-                <input type="text" id="location-filter" name="location" placeholder="Enter location">
+                <input type="text" id="search-input" name="query" placeholder="Search by city, state, or zip code">
                 <select id="bedrooms-filter" name="bedrooms">
                     <option value="">Any Bedrooms</option>
                     <option value="1">1 Bedroom</option>
