@@ -7,6 +7,13 @@
     <link rel="stylesheet" href="login.css"> 
 </head>
 <body>
+<header>
+    <h1>Next Door</h1>
+    <div class="header-buttons">
+        <a href="login.php">Login</a>
+        <a href="register.php">Register</a>
+    </div>
+</header>
 
 <?php
     session_start();
