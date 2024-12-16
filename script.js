@@ -69,6 +69,7 @@ document.addEventListener("DOMContentLoaded", () => {
         // Get search and filter values
         const query = document.getElementById("search-input").value.trim();
         const bedrooms = document.getElementById("bedrooms-filter").value;
+        const baths = document.getElementById("baths-filter").value;
         const minPrice = document.getElementById("min-price").value;
         const maxPrice = document.getElementById("max-price").value;
 
@@ -77,6 +78,7 @@ document.addEventListener("DOMContentLoaded", () => {
             query,
             location,
             bedrooms,
+            baths,
             min_price: minPrice || 0,
             max_price: maxPrice || Number.MAX_SAFE_INTEGER,
         });

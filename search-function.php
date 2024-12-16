@@ -5,6 +5,8 @@ header('Content-Type: application/json');
 try {
     // Retrieve user inputs from AJAX
     $query = $_GET['query'] ?? '';
+    $bedrooms = $_GET['bedrooms'] ?? '';
+    $baths = $_GET['baths'] ?? '';
     $min_price = $_GET['min_price'] ?? 0;
     $max_price = $_GET['max_price'] ?? PHP_INT_MAX;
 
@@ -14,6 +16,12 @@ try {
     // Add filters dynamically
     if (!empty($query)) {
         $sql .= " AND (location LIKE :query OR details LIKE :query)";
+    }
+    if (!empty($bedrooms)) {
+        $sql .= " AND bedrooms = :bedrooms";
+    }
+    if (!empty($baths)) {
+        $sql .= " AND baths = :baths";
     }
     if (!empty($min_price)) {
         $sql .= " AND price >= :min_price";
@@ -28,6 +36,12 @@ try {
     // Bind parameters
     if (!empty($query)) {
         $stmt->bindValue(':query', "%$query%");
+    }
+    if (!empty($bedrooms)) {
+        $stmt->bindValue(':bedrooms', $bedrooms, PDO::PARAM_INT);
+    }
+    if (!empty($baths)) {
+        $stmt->bindValue(':baths', $baths, PDO::PARAM_INT);
     }
     if (!empty($min_price)) {
         $stmt->bindValue(':min_price', $min_price, PDO::PARAM_INT);

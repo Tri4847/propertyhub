@@ -21,6 +21,18 @@
                     <option value="1">1 Bedroom</option>
                     <option value="2">2 Bedrooms</option>
                     <option value="3">3 Bedrooms</option>
+                    <option value="4">4 Bedrooms</option>
+                    <option value="5">5 Bedrooms</option>
+                    <option value="6">6 Bedrooms</option>
+                </select>
+                <select id="baths-filter" name="baths">
+                    <option value="">Any Baths</option>
+                    <option value="1">1 Bath</option>
+                    <option value="2">2 Baths</option>
+                    <option value="3">3 Baths</option>
+                    <option value="4">4 Baths</option>
+                    <option value="5">5 Baths</option>
+                    <option value="6">6 Baths</option>
                 </select>
                 <input type="number" id="min-price" name="min_price" placeholder="Min Price">
                 <input type="number" id="max-price" name="max_price" placeholder="Max Price">
