@@ -53,8 +53,8 @@ document.addEventListener("DOMContentLoaded", () => {
             li.classList.add("wishlist-item");
 
             li.innerHTML = `
-                <span>Property ID: ${item}</span>
-                <button class="remove-wishlist-btn" data-id="${item}">X</button>
+                <span>${item.location}</span>
+                <button class="remove-wishlist-btn" data-id="${item.property_id}">X</button>
             `;
             wishlistContainer.appendChild(li);
         });
