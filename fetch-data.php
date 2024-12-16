@@ -11,10 +11,13 @@ try {
     $properties = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     // Fetch wishlist for the logged-in user
-    $wishlist_sql = "SELECT property_id FROM wishlist WHERE user_id = :user_id";
+    $wishlist_sql = "SELECT property_id, properties.location 
+        FROM wishlist 
+        INNER JOIN properties ON wishlist.property_id = properties.id
+        WHERE user_id = :user_id";
     $stmt = $pdo->prepare($wishlist_sql);
     $stmt->execute(['user_id' => $user_id]);
-    $wishlist = $stmt->fetchAll(PDO::FETCH_COLUMN);
+    $wishlist = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     // Return the result as JSON
     header('Content-Type: application/json');
