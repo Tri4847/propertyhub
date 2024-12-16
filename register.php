@@ -14,11 +14,29 @@
 <form action = "register-submit.php" method = "POST">
     <fieldset>
         <h1>Register</h1>
-        <label for = "username"><strong>Username:</strong></label>
-        <input type = "text" size = "20" name = "Username" placeholder="Username" required></br>
-        <label for = "password"><strong>Password:</strong></label>
-        <input type = "password" size = "20" name = "Password" placeholder="Password" required></br>
-        <input type = "submit" name ="Submit" value = "Register">
+        <label for="first_name"><strong>First Name:</strong></label>
+        <input type="text" name="first_name" placeholder="First Name" required><br>
+
+        <label for="last_name"><strong>Last Name:</strong></label>
+        <input type="text" name="last_name" placeholder="Last Name" required><br>
+
+        <label for="email"><strong>Email Address:</strong></label>
+        <input type="email" name="email" placeholder="Email" required><br>
+
+        <label for="username"><strong>Username:</strong></label>
+        <input type="text" name="username" placeholder="Username" required><br>
+
+        <label for="password"><strong>Password:</strong></label>
+        <input type="password" name="password" placeholder="Password" required><br>
+
+        <label for="role"><strong>Role:</strong></label>
+        <select name="role" required>
+            <option value="buyer">Buyer</option>
+            <option value="seller">Seller</option>
+            <option value="admin">Admin</option>
+        </select><br>
+
+        <input type="submit" name="Submit" value="Register">
         <p>Already have an account? <a href="login.php">Log in Now!</a></p>
     </fieldset>  
 </form>
